@@ -28,8 +28,7 @@ document.getElementById("trackBtn").addEventListener("click", function() {
 
     const info = data[trackingNumber];
     if (info) {
-      resultBox.innerHTML = `
-        <div class="tracking-card">
+      resultBox.innerHTML = `                                                                   <div class="tracking-card">
           <p><strong>📦 Tracking Number:</strong> ${trackingNumber}</p>
           <p><strong>Status:</strong> ${info.status}</p>
           <p><strong>Last Location:</strong> ${info.lastLocation}</p>
