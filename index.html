@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pioneer Global Logistics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <div class="logo">Pioneer<span class="gold">Global</span></div>
+      <div class="tag">Delivering Trust Worldwide</div>
+    </div>
+    <button id="menu-toggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#tracking">Track</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+  <!-- HERO -->
+<header id="home" class="hero">
+  <div class="overlay"></div>
+  <div class="hero-content">
+    <h1>Seamless Logistics Across the Globe</h1>
+    <p class="lead">Connecting businesses with secure, fast, and transparent shipping — sea, air, and road.</p>
+    <div class="cta-row">
+      <a class="cta" href="#tracking">Track Shipment</a>
+<a 
+  class="cta outline"
+  href="https://wa.me/19568109658?text=Hello! I would like to get a quote for my shipment." 
+  target="_blank"
+>
+  Get a Quote
+</a>
+    </div>
+  </div>
+</header>
+  <!-- ABOUT -->
+  <section id="about" class="panel">
+    <h2>About Pioneer Global Logistics</h2>
+    <p>We partner with major carriers to provide secure, transparent transport. Door-to-door options, customs clearance, warehousing and dedicated account support.</p>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="panel">
+    <h2>Our Services</h2>
+<ul class="services-grid">
+<li onclick="openModal('seaModal')">
+  <strong>Sea Freight</strong><br/>FCL & LCL, container tracking
+</li>  <li onclick="openModal('airModal')"><strong>Air Freight</strong><br/>Express & economy options</li>
+  <li onclick="openModal('roadModal')"><strong>Road & LTL</strong><br/>Regional & last-mile</li>
+  <li onclick="openModal('customsModal')"><strong>Customs Brokerage</strong><br/>Import/export clearance</li>
+  <li onclick="openModal('warehouseModal')"><strong>Warehousing</strong><br/>Short & long-term storage</li>
+  <li onclick="openModal('insuranceModal')"><strong>Insurance</strong><br/>Cargo protection</li>
+</ul>
+
+<!-- Air Freight Modal -->
+<div id="airModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('airModal')">&times;</span>
+    <h3>Air Freight</h3>
+    <p>Fast and efficient shipping for high-value or time-sensitive cargo. We partner with leading airlines to provide express and economy options that meet your schedule and budget.</p>
+    <a class="cta" href="https://wa.me/19568109658?text=Hello%20Pioneer%20Global%20Logistics!%20I%27d%20like%20to%20request%20an%20Air%20Freight%20quote.">Request Air Freight</a>
+  </div>
+</div>
+
+<!-- Road & LTL Modal -->
+<div id="roadModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('roadModal')">&times;</span>
+    <h3>Road & LTL</h3>
+    <p>Reliable regional and last-mile delivery for goods of all sizes. Our fleet and partners ensure timely door-to-door service with real-time tracking and flexible routes.</p>
+    <a class="cta" href="https://wa.me/19568109658?text=Hello%20Pioneer%20Global%20Logistics!%20I%27d%20like%20to%20request%20a%20Road%20Freight%20quote.">Request Road Freight</a>
+  </div>
+</div>
+
+<!-- Customs Brokerage Modal -->
+<div id="customsModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('customsModal')">&times;</span>
+    <h3>Customs Brokerage</h3>
+    <p>We handle import and export clearance for you — reducing delays and ensuring compliance with global trade laws. Let our experts simplify the customs process for your shipments.</p>
+    <a class="cta" href="https://wa.me/19568109658?text=Hello%20Pioneer%20Global%20Logistics!%20I%27d%20like%20to%20request%20Customs%20Brokerage%20services.">Request Customs Brokerage</a>
+  </div>
+</div>
+
+<!-- Warehousing Modal -->
+<div id="warehouseModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('warehouseModal')">&times;</span>
+    <h3>Warehousing</h3>
+    <p>Secure, flexible storage solutions for both short and long-term needs. Our warehouses are equipped with modern facilities for inventory management and distribution.</p>
+    <a class="cta" href="https://wa.me/19568109658?text=Hello%20Pioneer%20Global%20Logistics!%20I%27d%20like%20to%20request%20Warehousing%20services.">Request Warehousing</a>
+  </div>
+</div>
+
+<!-- Insurance Modal -->
+<div id="insuranceModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('insuranceModal')">&times;</span>
+    <h3>Insurance</h3>
+    <p>Protect your cargo from loss or damage with our comprehensive insurance options. Peace of mind for every shipment, every route, every time.</p>
+    <a class="cta" href="https://wa.me/19568109658?text=Hello%20Pioneer%20Global%20Logistics!%20I%27d%20like%20to%20request%20Cargo%20Insurance.">Request Insurance</a>
+  </div>
+</div>
+
+<!-- Sea Freight Modal -->
+<div id="seaModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('seaModal')">&times;</span>
+    <h3>Sea Freight</h3>
+    <p>Cost-effective, secure shipping for large cargo across international waters. We manage FCL and LCL shipments with advanced tracking and trusted carrier partnerships.</p>
+    <a class="cta" href="https://wa.me/19568109658?text=Hello%20Pioneer%20Global%20Logistics!%20I%27d%20like%20to%20request%20a%20Sea%20Freight%20quote.">Request Sea Freight</a>
+  </div>
+</div>
+
+<!--
+  <!-- 
+‎TRACKING -->
+  <section id="tracking" class="panel">
+<h2>Track Your Shipment</h2>
+    <div class="tracker">
+      <input id="trackingNumber" type="text" placeholder="Enter tracking ID (e.g. PGL12345678)">
+      <button id="trackBtn">Track</button>
+    </div>
+
+    <div id="trackingResult" class="tracking-result" aria-live="polite">
+      <!-- result appears here -->
+    </div>
+  </section>
+
+<!-- SHIPMENT CALCULATOR -->
+<section id="calculator" class="panel">
+  <h2>Shipment Cost Calculator</h2>
+  <form id="calcForm" class="calculator">
+    <label for="weight">Weight (kg):</label>
+    <input type="number" id="weight" min="0" step="0.1" required placeholder="e.g. 5" />
+
+    <label for="destination">Destination:</label>
+    <select id="destination" required>
+      <option value="">-- Select Region --</option>
+      <option value="usa">USA</option>
+      <option value="europe">Europe</option>
+      <option value="asia">Asia</option>
+      <option value="africa">Africa</option>
+    </select>
+
+    <button type="submit">Calculate</button>
+  </form>
+
+  <div id="calcResult" class="calc-result"></div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="panel">
+  <h2>Contact Us</h2>
+  <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" class="contact-form">
+<input type="hidden" name="access_key" value="a7793fa7-7dd8-440d-a008-4f332fd969f8">
+    <div class="form-row">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" name="name" placeholder="Your full name" required>
+    </div>
+
+    <div class="form-row">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required>
+    </div>
+
+    <div class="form-row">
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="Type your message..." rows="4" required></textarea>
+    </div>
+
+    <button type="submit" class="cta">Send Message</button>
+
+    <p id="formStatus"></p>
+  </form>
+</section>
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>© <span id="year"></span> Pioneer Global Logistics</div>
+      <div class="social">Follow us: <em>placeholder</em></div>
+    </div>
+  </footer>
+
+</script>
+<script src="script.js"></script>
+  <script>
+    function openModal(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+  </script>
+<a href="https://wa.me/19568109658?text=Hello%20Pioneer%20Global%20Logistics" 
+   target="_blank" 
+   class="float-whatsapp" 
+   aria-label="Chat with us on WhatsApp">
+    <i class="fab fa-whatsapp"></i> 
+</a>
+</body>
+</html>
