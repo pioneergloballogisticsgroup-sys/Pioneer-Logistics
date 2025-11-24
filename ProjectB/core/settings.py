@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'website',
+    'ProjectB.website',  # <--- THIS IS THE FIX
 ]
 
 MIDDLEWARE = [
