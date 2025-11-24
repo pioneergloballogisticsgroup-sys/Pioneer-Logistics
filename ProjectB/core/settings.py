@@ -60,7 +60,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'core.urls'
+ROOT_URLCONF = 'ProjectB.core.urls'
 
 TEMPLATES = [
     {
@@ -77,8 +77,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'core.wsgi.application'
-
+WSGI_APPLICATION = 'ProjectB.core.wsgi.application'
 
 # Database
 # Use PostgreSQL database URL from Render environment variable
