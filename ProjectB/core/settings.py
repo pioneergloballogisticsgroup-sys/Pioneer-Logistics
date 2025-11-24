@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ProjectB.website',  # <--- THIS IS THE FIX
+    'ProjectB.website.apps.WebsiteConfig', # <--- FIXED FULL PATH
 ]
 
 MIDDLEWARE = [
