@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Services — Pioneer Global Logistics</title>
+  <style>
+    :root{
+      --brand:#0033cc;
+      --brand-dark:#002699;
+      --accent:#ffcc00;
+      --muted:#f2f7ff;
+      --card-bg:#fbfdff;
+      --text:#222;
+      --rounded:12px;
+    }
+
+    body { font-family: Arial, Helvetica, sans-serif; margin:0; background:#f6f8fb; color:#222; }
+    .container { max-width:1000px; margin: 18px auto; padding: 0 16px; }
+    
+    /* --- NEW RESPONSIVE STICKY HEADER --- */
+    header {
+      background: var(--brand);
+      padding: 0 20px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .header-container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header img { height: 44px; display: block; }
+
+    /* Desktop Navigation */
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { 
+      color: white; 
+      text-decoration: none; 
+      font-weight: 600; 
+      font-size: 15px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a.active { color: var(--accent); }
+
+    /* Mobile Menu Toggle (Hidden on Desktop) */
+    .menu-toggle { display: none; background: none; border: none; color: white; font-size: 32px; cursor: pointer; padding: 0; }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      header { padding: 0 16px; }
+      
+      .menu-toggle { display: block; }
+
+      .nav-links {
+        display: none; /* Hidden by default */
+        position: absolute;
+        top: 70px; /* Height of header */
+        left: 0;
+        right: 0;
+        background: var(--brand-dark);
+        flex-direction: column;
+        padding: 0;
+        gap: 0;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      }
+
+      .nav-links.active { display: flex; animation: slideDown 0.3s ease; }
+
+      .nav-links a {
+        display: block;
+        padding: 16px 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .nav-links a:last-child { border-bottom: none; }
+    }
+
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* --- PAGE CONTENT STYLES --- */
+
+    h1 { color:#003366; text-align:center; margin:20px 0 8px; }
+
+    /* Service block */
+    .service {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 18px 0;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    }
+
+    .service-header {
+      display:flex;
+      gap:16px;
+      align-items:center;
+      padding:16px;
+      background: linear-gradient(90deg,#0b5fff10,#ffffff);
+      cursor: pointer;
+    }
+
+    .service-header .icon {
+      width:72px;
+      height:72px;
+      border-radius:10px;
+      background:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:36px;
+      box-shadow:0 3px 8px rgba(0,0,0,0.08);
+      flex-shrink: 0;
+    }
+
+    .service-header h2 { margin:0; color:#003366; font-size:20px; }
+    .service-header p { margin:0; color:#555; font-size:14px; }
+
+    .service-body {
+      padding:16px;
+      border-top:1px solid #eee;
+      display:none; /* collapsed by default */
+      background: linear-gradient(#ffffff,#fafcff);
+    }
+
+    .service-body img {
+      width:100%;
+      max-height:280px;
+      object-fit:cover;
+      border-radius:8px;
+      margin-bottom:12px;
+    }
+
+    .service-body .full-text {
+      font-size:15px;
+      color:#333;
+      line-height:1.6;
+      margin-bottom:14px;
+    }
+
+    .service-actions {
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .btn {
+      padding:10px 14px;
+      border-radius:8px;
+      text-decoration:none;
+      color:#fff;
+      background:#0033cc;
+      font-weight:600;
+      display:inline-block;
+    }
+
+    .btn.secondary {
+      background:#25D366; /* green - Whatsapp/Contact */
+      color:#fff;
+    }
+
+    /* smooth collapse animation helpers */
+    .service-body.collapsing {
+      transition: height 260ms ease;
+      overflow: hidden;
+    }
+
+    .service-header .icon i {
+      color: #0033cc;
+    }
+
+    /* anchor spacing fix */
+    .anchor-fix { position: relative; top: -80px; visibility: hidden; height: 0; }
+
+    @media (max-width:600px) {
+      .service-header { padding:12px; gap:12px; }
+      .service-header .icon { width:56px; height:56px; font-size:28px; }
+      .service-body img { max-height:200px; }
+    }
+  </style>
+</head>
+
+<body>
+  
+  <!-- RESPONSIVE STICKY HEADER -->
+  <header>
+    <div class="header-container">
+      <a href="/">
+        <img src="/static/logo.png" alt="Pioneer Global Logistics">
+      </a>
+
+      <!-- Mobile Hamburger Button -->
+      <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle navigation">
+        <i class="bi bi-list"></i>
+      </button>
+
+      <!-- Navigation Links -->
+      <nav class="nav-links" id="navLinks">
+        <a href="/">Home</a>
+        <a href="/about/">About</a>
+        <a href="/services/" class="active">Services</a>
+        <a href="/calculator">Calculator</a>
+        <a href="/tracking/">Tracking</a>
+        <a href="/contact/">Contact</a>
+	<a href="/estimates/">Estimates</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <h1>Our Services</h1>
+    <p style="text-align:center; color:#555; margin-bottom:25px;">
+      Click any service to read the full description. Use the Contact button to get a quote.
+    </p>
+
+    <div id="local-delivery" class="anchor-fix"></div>
+    <div class="service" data-service="local-delivery">
+      <div class="service-header" aria-expanded="false">
+        <div class="icon"><i class="bi bi-truck"></i></div>
+        <div>
+          <h2>Local Delivery</h2>
+          <p>Fast, same-city and regional deliveries to homes and businesses.</p>
+        </div>
+      </div>
+      <div class="service-body">
+        <img src="/static/website/images/local_delivery.jpg" alt="Local Delivery">
+        <div class="full-text">
+          Our Local Delivery service gets your packages from pickup to drop-off within the city. Ideal for urgent documents and parcels.
+        </div>
+        <div class="service-actions">
+          <a class="btn" href="/calculator/">Estimate Cost</a>
+          <a class="btn secondary" href="/contact/">Contact Us</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="international-delivery" class="anchor-fix"></div>
+    <div class="service" data-service="international-delivery">
+      <div class="service-header" aria-expanded="false">
+        <div class="icon"><i class="bi bi-airplane"></i></div>
+        <div>
+          <h2>International Delivery</h2>
+          <p>Door-to-door international shipments with customs support.</p>
+        </div>
+      </div>
+      <div class="service-body">
+        <img src="/static/website/images/international_delivery.jpg" alt="International">
+        <div class="full-text">
+          Our International Delivery service handles cross-border logistics, including customs clearance and multi-modal transport.
+        </div>
+        <div class="service-actions">
+          <a class="btn" href="/calculator/">Estimate Cost</a>
+          <a class="btn secondary" href="/contact/">Contact Us</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="air-freight" class="anchor-fix"></div>
+    <div class="service" data-service="air-freight">
+      <div class="service-header" aria-expanded="false">
+        <div class="icon"><i class="bi bi-send-fill"></i></div>
+        <div>
+          <h2>Air Freight</h2>
+          <p>Fast international cargo via air for time-sensitive shipments.</p>
+        </div>
+      </div>
+      <div class="service-body">
+        <img src="/static/website/images/air_freight.jpg" alt="Air freight">
+        <div class="full-text">
+          Air freight provides the fastest transit times for urgent cargo. We offer door-to-airport and door-to-door options.
+        </div>
+        <div class="service-actions">
+          <a class="btn" href="/calculator/">Estimate Cost</a>
+          <a class="btn secondary" href="/contact/">Contact Us</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="sea-freight" class="anchor-fix"></div>
+    <div class="service" data-service="sea-freight">
+      <div class="service-header" aria-expanded="false">
+        <div class="icon"><i class="bi bi-water"></i></div>
+        <div>
+          <h2>Sea Freight</h2>
+          <p>Cost-effective ocean shipping for large volumes and containers.</p>
+        </div>
+      </div>
+      <div class="service-body">
+        <img src="/static/website/images/sea_freight.jpg" alt="Sea freight">
+        <div class="full-text">
+          Sea freight is the economical choice for heavy or bulk shipments. We handle FCL (Full Container) and LCL (Less than Container) loads.
+        </div>
+        <div class="service-actions">
+          <a class="btn" href="/calculator/">Estimate Cost</a>
+          <a class="btn secondary" href="/contact/">Contact Us</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="road-transport" class="anchor-fix"></div>
+    <div class="service" data-service="road-transport">
+      <div class="service-header" aria-expanded="false">
+        <div class="icon"><i class="bi bi-signpost"></i></div>
+        <div>
+          <h2>Road Transport</h2>
+          <p>Reliable trucking and last-mile solutions for regional logistics.</p>
+        </div>
+      </div>
+      <div class="service-body">
+        <img src="/static/website/images/road_transport.jpg" alt="Road transport">
+        <div class="full-text">
+          Our Road Transport service covers full truckload and less-than-truckload options with secure tracking.
+        </div>
+        <div class="service-actions">
+          <a class="btn" href="/calculator/">Estimate Cost</a>
+          <a class="btn secondary" href="/contact/">Contact Us</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="warehousing" class="anchor-fix"></div>
+    <div class="service" data-service="warehousing">
+      <div class="service-header" aria-expanded="false">
+        <div class="icon"><i class="bi bi-box-seam"></i></div>
+        <div>
+          <h2>Warehousing</h2>
+          <p>Secure storage, inventory management, and fulfillment services.</p>
+        </div>
+      </div>
+      <div class="service-body">
+        <img src="/static/website/images/warehousing.jpg" alt="Warehousing">
+        <div class="full-text">
+          Our warehousing solutions include secure storage, inventory reporting, and pick-and-pack services for your goods.
+        </div>
+        <div class="service-actions">
+          <a class="btn" href="/calculator/">Estimate Cost</a>
+          <a class="btn secondary" href="/contact/">Contact Us</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="ecommerce" class="anchor-fix"></div>
+    <div class="service" data-service="ecommerce">
+      <div class="service-header" aria-expanded="false">
+        <div class="icon"><i class="bi bi-bag-check"></i></div>
+        <div>
+          <h2>E-commerce Delivery</h2>
+          <p>Fast, trackable deliveries tailored for online merchants.</p>
+        </div>
+      </div>
+      <div class="service-body">
+        <img src="/static/website/images/ecommerce.jpg" alt="E-commerce">
+        <div class="full-text">
+          Our e-commerce delivery service integrates with online stores to provide fast, reliable last-mile delivery to your customers.
+        </div>
+        <div class="service-actions">
+          <a class="btn" href="/calculator/">Estimate Cost</a>
+          <a class="btn secondary" href="/contact/">Contact Us</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="pickup" class="anchor-fix"></div>
+    <div class="service" data-service="pickup">
+      <div class="service-header" aria-expanded="false">
+        <div class="icon"><i class="bi bi-mailbox"></i></div>
+        <div>
+          <h2>Pickup Services</h2>
+          <p>Schedule pickups from home, office or store — we collect.</p>
+        </div>
+      </div>
+      <div class="service-body">
+        <img src="/static/website/images/pickup.jpg" alt="Pickup services">
+        <div class="full-text">
+          Schedule a pickup and our driver will collect your package from your location at a time that suits you.
+        </div>
+        <div class="service-actions">
+          <a class="btn" href="/calculator/">Estimate Cost</a>
+          <a class="btn secondary" href="/contact/">Contact Us</a>
+        </div>
+      </div>
+    </div>
+
+  </div> 
+  
+  <!-- Scripts -->
+  <script>
+    // Header Toggle Menu
+    function toggleMenu() {
+        const nav = document.getElementById('navLinks');
+        const btn = document.querySelector('.menu-toggle i');
+        
+        nav.classList.toggle('active');
+        
+        if (nav.classList.contains('active')) {
+            btn.classList.remove('bi-list');
+            btn.classList.add('bi-x-lg');
+        } else {
+            btn.classList.remove('bi-x-lg');
+            btn.classList.add('bi-list');
+        }
+    }
+
+    // Toggle expand/collapse with smooth height transition for Services
+    function toggleServiceBody(headerEl) {
+      const service = headerEl.closest('.service');
+      const body = service.querySelector('.service-body');
+      const expanded = headerEl.getAttribute('aria-expanded') === 'true';
+
+      if (!expanded) {
+        // Expand
+        body.style.display = 'block';
+        const height = body.scrollHeight + 'px';
+        body.style.height = '0px';
+        body.classList.add('collapsing');
+
+        requestAnimationFrame(() => {
+          body.style.height = height;
+        });
+
+        body.addEventListener('transitionend', function done() {
+          body.classList.remove('collapsing');
+          body.style.height = '';
+          body.removeEventListener('transitionend', done);
+        }, { once: true });
+
+        headerEl.setAttribute('aria-expanded', 'true');
+      } else {
+        // Collapse
+        const height = body.scrollHeight + 'px';
+        body.style.height = height;
+
+        requestAnimationFrame(() => {
+          body.classList.add('collapsing');
+          body.style.height = '0px';
+        });
+
+        body.addEventListener('transitionend', function done2() {
+          body.classList.remove('collapsing');
+          body.style.display = 'none';
+          body.style.height = '';
+          body.removeEventListener('transitionend', done2);
+        }, { once: true });
+
+        headerEl.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    // Attach click handlers on page load
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.service-header').forEach(header => {
+        header.addEventListener('click', () => toggleServiceBody(header));
+      });
+
+      // If a hash exists (e.g. /services/#air-freight), open that service
+      const hash = location.hash && location.hash.substring(1);
+      if (hash) {
+        // Look for the service data attribute matching the hash
+        const target = document.querySelector(`[data-service="${hash}"]`);
+        if (target) {
+          const header = target.querySelector('.service-header');
+          // If found and not already open, click it
+          if (header && header.getAttribute('aria-expanded') !== 'true') {
+            header.click(); 
+          }
+          // scroll after a small timeout to allow expansion start
+          setTimeout(() => {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 120);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
+
+

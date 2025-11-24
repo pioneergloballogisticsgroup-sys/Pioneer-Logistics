@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Pioneer Global Logistics</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        /* --- Global Variables and Base Styles (from uniform header) --- */
+        :root{
+            --brand:#0033cc;
+            --brand-dark:#002699;
+            --accent:#ffcc00;
+            --muted:#f2f7ff;
+            --card-bg:#fbfdff;
+            --text:#222;
+            --rounded:12px;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f7faff;
+            color: #0033cc;
+        }
+
+        /* --- UNIFORM RESPONSIVE STICKY HEADER --- */
+        header {
+            background: var(--brand);
+            padding: 0 20px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header img { height: 44px; display: block; }
+
+        /* Desktop Navigation */
+        .nav-links { display: flex; gap: 24px; align-items: center; }
+        .nav-links a { 
+            color: white; 
+            text-decoration: none; 
+            font-weight: 600; 
+            font-size: 15px;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-links a.active { color: var(--accent); }
+
+        /* Mobile Menu Toggle (Hidden on Desktop) - Corrected for centering and size */
+        .menu-toggle { 
+            display: none; 
+            background: none; 
+            border: none; 
+            color: white; 
+            font-size: 32px; 
+            cursor: pointer; 
+            padding: 0; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            header { padding: 0 16px; }
+            
+            .menu-toggle { 
+                display: flex; 
+                width: 32px; 
+                height: 32px; 
+            }
+
+            .nav-links {
+                display: none; /* Hidden by default */
+                position: absolute;
+                top: 70px; /* Height of header */
+                left: 0;
+                right: 0;
+                background: var(--brand-dark);
+                flex-direction: column;
+                padding: 0;
+                gap: 0;
+                border-top: 1px solid rgba(255,255,255,0.1);
+                box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            }
+
+            .nav-links.active { display: flex; animation: slideDown 0.3s ease; }
+
+            .nav-links a {
+                display: block;
+                padding: 16px 20px;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .nav-links a:last-child { border-bottom: none; }
+        }
+
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        /* --- End of Uniform Header Styles --- */
+
+        /* Hero Section */
+        .contact-hero {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(to bottom right, #c9dfff, #f7faff);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .contact-hero h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .contact-hero p {
+            font-size: 18px;
+            color: #002699;
+        }
+
+        /* Contact Layout */
+        .contact-container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: -40px;
+            box-shadow: 0px 4px 15px rgba(0, 51, 204, 0.1);
+            animation: slideUp 1.2s ease-in-out;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .contact-box {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .contact-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+        }
+
+        .contact-box i {
+            font-size: 30px;
+            margin-bottom: 10px;
+            color: #0033cc;
+        }
+
+        .contact-box p, .contact-box a {
+            font-size: 17px;
+            color: #002080;
+            text-decoration: none;
+        }
+
+        .contact-buttons a {
+            display: inline-block;
+            margin: 10px 5px;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+        }
+
+        .email-btn {
+            background: #0033cc;
+        }
+
+        .whatsapp-btn:hover, .email-btn:hover {
+            opacity: 0.8;
+        }
+
+        /* Map Section */
+        .map {
+            margin-top: 30px;
+            border-radius: 12px;
+            overflow: hidden;
+            animation: fadeIn 2s;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 700px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background: #0033cc;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-container">
+        <a href="/">
+            <img src="/static/logo.png" alt="Pioneer Global Logistics">
+        </a>
+
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle navigation">
+            <i class="bi bi-list"></i>
+        </button>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="/">Home</a>
+            <a href="/about/">About</a>
+            <a href="/services/">Services</a>
+            <a href="/calculator">Calculator</a>
+            <a href="/tracking/">Tracking</a>
+            <a href="/contact/" class="active">Contact</a>
+            <a href="/estimates/">Estimates</a>
+        </nav>
+    </div>
+</header>
+<section class="contact-hero">
+    <h1>Contact Pioneer Global Logistics</h1>
+    <p>We are here to assist you anytime. Reach out through phone, email, or WhatsApp.</p>
+</section>
+
+<div class="contact-container">
+
+    <div class="contact-grid">
+        
+        <div class="contact-box">
+            <i class="bi bi-telephone-fill"></i>
+            <h3>Phone / WhatsApp</h3>
+            <p><a href="https://wa.me/19568109658" target="_blank">+1 (956) 810 9658</a></p>
+
+            <div class="contact-buttons">
+                <a class="whatsapp-btn" href="https://wa.me/19568109658" target="_blank">
+                    <i class="bi bi-whatsapp"></i> Chat on WhatsApp
+                </a>
+            </div>
+        </div>
+
+        <div class="contact-box">
+            <i class="bi bi-envelope-fill"></i>
+            <h3>Email Us</h3>
+            <p>pioneergloballogisticsgroup@gmail.com</p>
+
+            <div class="contact-buttons">
+                <a class="email-btn" href="mailto:pioneergloballogisticsgroup@gmail.com">
+                    <i class="bi bi-envelope"></i> Send Email
+                </a>
+            </div>
+        </div>
+
+        <div class="contact-box">
+            <i class="bi bi-geo-alt-fill"></i>
+            <h3>Office Address</h3>
+            <p>8826 N 23rd Ave #105,<br> Phoenix, AZ 85021, USA</p>
+        </div>
+
+        <div class="contact-box">
+            <i class="bi bi-clock-fill"></i>
+            <h3>Working Hours</h3>
+            <p>Monday – Saturday</p>
+            <p>8:00 AM – 6:00 PM</p>
+        </div>
+
+    </div>
+
+    <div class="map">
+        <iframe 
+            src="https://www.google.com/maps?q=8826+N+23rd+Ave+%23105,+Phoenix,+AZ+85021&output=embed"  
+            width="100%" 
+            height="350" 
+            style="border:0;" 
+            allowfullscreen="">
+        </iframe>
+    </div>
+
+</div>
+
+<footer>
+    © 2025 Pioneer Global Logistics — All Rights Reserved.
+</footer>
+
+<script>
+  // Header Toggle Menu
+  function toggleMenu() {
+      const nav = document.getElementById('navLinks');
+      const btn = document.querySelector('.menu-toggle i');
+      
+      nav.classList.toggle('active');
+      
+      if (nav.classList.contains('active')) {
+          btn.classList.remove('bi-list');
+          btn.classList.add('bi-x-lg');
+      } else {
+          btn.classList.remove('bi-x-lg');
+          btn.classList.add('bi-list');
+      }
+  }
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Air Freight Calculator - Pioneer Global Logistics</title>
+    <style>
+        body { 
+            font-family: Arial; 
+            background: #f2f7ff; 
+            padding: 30px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            width: 400px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input, button {
+            width: 100%; 
+            padding: 10px; 
+            margin: 8px 0;
+        }
+        button {
+            background: #0033cc;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .result {
+            background: #e8f0ff; 
+            padding: 12px;
+            margin-top: 15px;
+            text-align: center;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Air Freight Calculator</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label>Weight (kg)</label>
+        <input type="number" name="weight" step="0.1" required>
+
+        <label>Distance (km)</label>
+        <input type="number" name="distance" required>
+
+        <button type="submit">Calculate</button>
+    </form>
+
+    {% if price %}
+        <div class="result">
+            Estimated Cost: ${{ price }}
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>

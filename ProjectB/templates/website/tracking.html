@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Track Shipment — Pioneer Global Logistics</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <style>
+    /* --- Global Variables and Base Styles (from uniform header) --- */
+    :root{
+      --brand:#0033cc;
+      --brand-dark:#002699;
+      --accent:#ffcc00;
+      --muted:#f2f7ff;
+      --card-bg:#fbfdff;
+      --text:#222;
+      --rounded:12px;
+    }
+
+    body { font-family: Arial, Helvetica, sans-serif; background:#f4f4f4; margin:0; padding:0; color:var(--text); }
+    .container { max-width:920px; margin:28px auto; padding:16px; }
+    h1 { color:#0033cc; text-align:center; margin-bottom:18px; margin-top: 0; } /* Adjusted margin-top for header clearance */
+
+    /* --- UNIFORM RESPONSIVE STICKY HEADER --- */
+    header {
+      background: var(--brand);
+      padding: 0 20px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .header-container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header img { height: 44px; display: block; }
+
+    /* Desktop Navigation */
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { 
+      color: white; 
+      text-decoration: none; 
+      font-weight: 600; 
+      font-size: 15px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a.active { color: var(--accent); }
+
+    /* Mobile Menu Toggle (Hidden on Desktop) - Corrected for centering */
+    .menu-toggle { 
+      display: none; 
+      background: none; 
+      border: none; 
+      color: white; 
+      font-size: 32px; 
+      cursor: pointer; 
+      padding: 0; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+    }
+
+    /* Mobile Responsiveness */
+    @media (max-width: 768px) {
+      header { padding: 0 16px; }
+      
+      .menu-toggle { 
+        display: flex; 
+        width: 32px; 
+        height: 32px; 
+      }
+
+      .nav-links {
+        display: none; /* Hidden by default */
+        position: absolute;
+        top: 70px; /* Height of header */
+        left: 0;
+        right: 0;
+        background: var(--brand-dark);
+        flex-direction: column;
+        padding: 0;
+        gap: 0;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      }
+
+      .nav-links.active { display: flex; animation: slideDown 0.3s ease; }
+
+      .nav-links a {
+        display: block;
+        padding: 16px 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .nav-links a:last-child { border-bottom: none; }
+    }
+
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    /* --- End of Uniform Header Styles --- */
+
+    /* --- Tracking Page Specific Styles --- */
+    .search-card { background:#fff; padding:18px; border-radius:10px; box-shadow:0 1px 4px rgba(0,0,0,.1); }
+    .search-card input { width:100%; padding:14px; border-radius:8px; border:1px solid #ccc; }
+    .search-card button { margin-top:12px; width:100%; padding:12px; border:none; border-radius:8px; background:#0033cc; color:white; font-weight:600; }
+
+    .result-card { margin-top:20px; background:#fff; padding:18px; border-radius:10px; box-shadow:0 1px 4px rgba(0,0,0,.1); }
+
+    .status-header { display:flex; gap:12px; align-items:center; }
+    .status-header .icon { width:54px; height:54px; border-radius:8px; background:#e5ecff; display:flex; justify-content:center; align-items:center; font-size:28px; color:#0033cc; }
+    .tracking-number { font-size:18px; color:#333; margin-top:6px; font-weight:bold; }
+
+    .summary { display:flex; gap:18px; flex-wrap:wrap; margin-top:14px; }
+    .summary .card { background:#fbfdff; padding:12px; border:1px solid #e3e9ff; border-radius:8px; flex:1; min-width:180px; }
+
+    .timeline { margin-top:22px; padding-left:12px; border-left:4px solid #0033cc; }
+    .event { position:relative; padding:12px 18px 12px 28px; margin-bottom:14px; background:#f8faff; border-radius:6px; }
+    .event .marker { position:absolute; left:-34px; top:18px; width:22px; height:22px; display:flex; align-items:center; justify-content:center; font-size:18px; color:#0033cc; background:white; border:2px solid #0033cc; border-radius:50%; }
+    .event .time { font-size:13px; color:#777; margin-bottom:6px; }
+    .event .title { font-weight:700; color:#003366; margin-bottom:6px; }
+    .event .meta { font-size:14px; color:#333; }
+
+    .no-result { margin-top:20px; background:#fff6f6; border-left:4px solid #cc0000; padding:14px; border-radius:6px; font-size:15px; }
+  </style>
+</head>
+<body>
+  
+  <header>
+    <div class="header-container">
+      <a href="/">
+        <img src="/static/logo.png" alt="Pioneer Global Logistics">
+      </a>
+
+      <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle navigation">
+        <i class="bi bi-list"></i>
+      </button>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="/">Home</a>
+        <a href="/about/">About</a>
+        <a href="/services/">Services</a>
+        <a href="/calculator">Calculator</a>
+        <a href="/tracking/" class="active">Tracking</a>
+        <a href="/contact/">Contact</a>
+        <a href="/estimates/">Estimates</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <h1>Track Your Shipment</h1>
+
+    <div class="search-card">
+      <form method="GET" action="">
+        <input name="code" placeholder="Enter tracking number (e.g. PG123456789)" required>
+        <button type="submit">Track Shipment</button>
+      </form>
+    </div>
+
+    {% if searched %}
+      {% if shipment %}
+        <div class="result-card">
+          <div class="status-header">
+            <div class="icon"><i class="bi bi-box-seam"></i></div>
+            <div>
+              <div style="font-size:16px; color:#003366; font-weight:600;">Shipment Found</div>
+              <div class="tracking-number">Tracking No: <span style="color:#0033cc;">{{ shipment.tracking_number }}</span></div>
+              <div style="font-size:14px; color:#555; margin-top:6px;">Status: {{ shipment.status }}</div>
+            </div>
+          </div>
+
+          <div class="summary">
+            <div class="card">
+              <strong>From</strong><br>
+              {{ shipment.origin|default:shipment.sender_address|default:"—" }}
+            </div>
+
+            <div class="card">
+              <strong>Sender</strong><br>
+              {{ shipment.sender_name|default:"—" }}
+            </div>
+
+            <div class="card">
+              <strong>To</strong><br>
+              {{ shipment.destination|default:shipment.receiver_address|default:"—" }}
+            </div>
+
+            <div class="card">
+              <strong>Last Updated</strong><br>
+              {{ shipment.last_updated_at|date:"M d, Y • h:i A" }}
+            </div>
+
+            <div class="card">
+              <strong>Service</strong><br>{{ shipment.service_type|default:"—" }}
+            </div>
+          </div>
+
+          <h3 style="color:#0033cc; margin-top:18px;">Shipment Journey</h3>
+
+          <div class="timeline">
+            {% if events %}
+              {% for ev in events %}
+                <div class="event">
+                  <div class="marker">
+                    {% if ev.event_type == "DEPARTED" %}
+                      <i class="bi bi-truck"></i>
+                    {% elif ev.event_type == "ARRIVED" %}
+                      <i class="bi bi-geo-alt"></i>
+                    {% elif ev.event_type == "IN_TRANSIT" %}
+                      <i class="bi bi-arrow-left-right"></i>
+                    {% elif ev.event_type == "DELIVERED" %}
+                      <i class="bi bi-check-circle"></i>
+                    {% else %}
+                      <i class="bi bi-info-circle"></i>
+                    {% endif %}
+                  </div>
+
+                  <div class="time">{{ ev.timestamp|date:"M d, Y — h:i A" }}</div>
+                  <div class="title">{{ ev.get_event_type_display }}</div>
+                  <div class="meta">
+                    <strong>{{ ev.facility|default:ev.location|default:"Unknown location" }}</strong><br>
+                    {{ ev.description|default:"" }}
+                    {% if ev.note %}
+                      <br><small style="color:#777;">{{ ev.note }}</small>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endfor %}
+            {% else %}
+              <div class="event">
+                <div class="marker"><i class="bi bi-info-circle"></i></div>
+                <div class="time">&nbsp;</div>
+                <div class="title">No events recorded yet</div>
+                <div class="meta">This shipment has no timeline events yet.</div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+
+      {% else %}
+        <div class="no-result">No shipment found for that tracking number.</div>
+      {% endif %}
+    {% endif %}
+
+  </div>
+  
+  <script>
+    // Header Toggle Menu
+    function toggleMenu() {
+        const nav = document.getElementById('navLinks');
+        const btn = document.querySelector('.menu-toggle i');
+        
+        nav.classList.toggle('active');
+        
+        if (nav.classList.contains('active')) {
+            btn.classList.remove('bi-list');
+            btn.classList.add('bi-x-lg');
+        } else {
+            btn.classList.remove('bi-x-lg');
+            btn.classList.add('bi-list');
+        }
+    }
+  </script>
+
+</body>
+</html>
+
