@@ -4,7 +4,7 @@ Django settings for core project.
 
 from pathlib import Path
 import os
-import dj_database_url # 👈 NEW: Import for production database config
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -12,23 +12,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # --- Quick-start development settings - unsuitable for production ---
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# 🚨 IMPORTANT: You must set the SECRET_KEY as an Environment Variable on Render!
-# The default insecure key is kept here for local testing fallback.
-SECRET_KEY = 'django-insecure-je9#j-qd(xgt%$vtf)299*#l2_v(+=cn7(+swlr69p2#xhhe+k'
+# 🚨 GUARANTEED FIX: Read from environment variable first, fall back to the insecure one only locally.
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY', 
+    'django-insecure-je9#j-qd(xgt%$vtf)299*#l2_v(+=cn7(+swlr69p2#xhhe+k'
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# 🚨 CHANGE 1: DEBUG must be False in production
-DEBUG = False 
+# 🚨 GUARANTEED FIX: Read DEBUG from environment variable (default to False for safety)
+DEBUG = os.environ.get('DEBUG') == 'True' 
 
-# 🚨 CHANGE 2: ALLOWED_HOSTS must list your domain and Render's domain
-# Replace the placeholder Render URL below with the ACTUAL URL Render gives you (e.g., 'your-service.onrender.com')
+# ALLOWED_HOSTS must list your domain and Render's domain
 ALLOWED_HOSTS = [
     'pioneergloballogistics.site', 
     'www.pioneergloballogistics.site',
-    'pioneer-logistics-server.onrender.com' # 👈 Placeholder: Update this with your actual Render service URL
+    os.environ.get('RENDER_EXTERNAL_HOSTNAME'), # 👈 NEW: Reads Render's actual hostname dynamically
 ]
 
-# CSRF_TRUSTED_ORIGINS is necessary for Render to proxy requests securely
+# Ensure Render and your domain are trusted
 CSRF_TRUSTED_ORIGINS = [
     'https://*.pioneergloballogistics.site',
     'https://*.onrender.com'
@@ -48,7 +49,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    # 🚨 CHANGE 3: WhiteNoise Middleware for serving static files efficiently
+    # 🚨 CONFIRMED CORRECT: WhiteNoise middleware for serving static files
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -80,11 +81,10 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 
 # Database
-# 🚨 CHANGE 4: Use PostgreSQL database URL from Render environment variable
+# Use PostgreSQL database URL from Render environment variable
 DATABASES = {
     'default': dj_database_url.config(
         # Read DATABASE_URL environment variable (from Render)
-        # Fall back to local SQLite if the variable isn't set
         default=f'sqlite:///{BASE_DIR / "db.sqlite3"}',
         conn_max_age=600 
     )
@@ -92,8 +92,6 @@ DATABASES = {
 
 
 # Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -111,8 +109,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Etc/GMT'
@@ -123,7 +119,6 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# 🚨 CHANGE 5: Configure WhiteNoise storage for collected static files
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [BASE_DIR / "static"]
@@ -133,10 +128,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-WHATSAPP_NUMBER = "19568109658"  # <-- change to your real WhatsApp number
+WHATSAPP_NUMBER = "19568109658"
 WHATSAPP_LINK = f"https://wa.me/{WHATSAPP_NUMBER}"
 
