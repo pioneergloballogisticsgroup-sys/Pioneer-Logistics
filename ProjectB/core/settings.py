@@ -23,7 +23,7 @@ SECRET_KEY = os.environ.get(
 DEBUG = os.environ.get('DEBUG') == 'True' 
 
 # ALLOWED_HOSTS must list your domain and Render's domain
-ALLOWED_HOSTS = [
+ALLOWED_HOSTS = ['*', 
     'pioneergloballogistics.site', 
     'www.pioneergloballogistics.site',
     os.environ.get('RENDER_EXTERNAL_HOSTNAME'), # 👈 NEW: Reads Render's actual hostname dynamically
