@@ -30,7 +30,7 @@ ALLOWED_HOSTS = ['*',
 ]
 
 # Ensure Render and your domain are trusted
-CSRF_TRUSTED_ORIGINS = [
+CSRF_TRUSTED_ORIGINS = ['https://pioneer-logistics-production.up.railway.app',
     'https://*.pioneergloballogistics.site',
     'https://*.onrender.com'
 ]
