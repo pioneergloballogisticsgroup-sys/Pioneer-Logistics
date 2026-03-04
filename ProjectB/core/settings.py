@@ -49,9 +49,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    # 🚨 CONFIRMED CORRECT: WhiteNoise middleware for serving static files
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',    # <--- MUST be second!
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
