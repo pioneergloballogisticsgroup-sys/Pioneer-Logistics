@@ -29,6 +29,8 @@ ALLOWED_HOSTS = ['*',
     os.environ.get('RENDER_EXTERNAL_HOSTNAME'), # 👈 NEW: Reads Render's actual hostname dynamically
 ]
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 # Ensure Render and your domain are trusted
 CSRF_TRUSTED_ORIGINS = ['https://pioneer-logistics-production.up.railway.app',
     'https://*.pioneergloballogistics.site',
